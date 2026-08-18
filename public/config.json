@@ -19,10 +19,9 @@
   "designScale": 20,
   "designs": [
     { "id": "room101", "title": "room101", "src": "/designs/room101.png" },
-    { "id": "Stress", "title": "Stress", "src": "/prsioners - series-02.png" },
-    { "id": "briefcase", "title": "Briefcase", "src": "/designs/briefcase.svg" },
-    { "id": "check", "title": "Checkmark", "src": "/designs/check.svg" },
-    { "id": "diamond", "title": "Diamond", "src": "/designs/diamond.svg" }
+    { "id": "prisoners-01", "title": "Prisoners 01", "src": "/designs/prsioners - series-01.png" },
+    { "id": "prisoners-02", "title": "Prisoners 02", "src": "/designs/prsioners - series-02.png" },
+    { "id": "prisoners-03", "title": "Prisoners 03", "src": "/designs/prsioners - series-03.png" }
   ],
   "allowCustomerUploads": true
 }
