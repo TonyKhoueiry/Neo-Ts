@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* Inlined SVG designs scale to their container */
+.design-art svg {
+  width: 100%;
+  height: 100%;
+}
