@@ -1,18 +1,22 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 
+// Main T-Shirt Customizer Component
 function App() {
-  // T-Shirt attributes selection state
+  // T-Shirt customization options
   const [selectedCut, setSelectedCut] = useState('crew-neck');
   const [selectedColor, setSelectedColor] = useState('#ffffff');
   const [selectedSize, setSelectedSize] = useState('M');
   const [selectedDesign, setSelectedDesign] = useState(null);
   const [designPosition, setDesignPosition] = useState({ x: 0, y: 0 });
 
+  // Image load error fallback state (for preview environment)
+  const [imgError, setImgError] = useState(false);
+
   // Modal dialog state
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState('');
 
-  // Dragging and canvas references
+  // Dragging state and canvas reference
   const tShirtRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -165,6 +169,7 @@ function App() {
   return (
     <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center p-4 min-h-screen bg-gray-100 font-sans">
       {/* Controls Section */}
+      {}
       <div className="w-full lg:w-1/3 p-6 bg-white rounded-xl shadow-lg mb-6 lg:mb-0 lg:mr-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Customize Your T-Shirt</h2>
 
@@ -328,6 +333,7 @@ function App() {
       </div>
 
       {/* T-Shirt Mockup Display Section */}
+      {}
       <div className="w-full lg:w-2/3 p-6 bg-white rounded-xl shadow-lg flex flex-col items-center justify-center">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Your Custom T-Shirt</h2>
         
@@ -336,17 +342,60 @@ function App() {
           className="relative w-full max-w-md aspect-square rounded-xl flex items-center justify-center overflow-hidden border-2 border-gray-200 transition-colors duration-300 shadow-inner"
           style={{ backgroundColor: selectedColor }}
         >
-          {/* T-Shirt Overlay Mockup Image */}
-          <img
-            src="/CNSM_W.png"
-            alt="T-Shirt Mockup"
-            className="absolute inset-0 w-full h-full object-contain pointer-events-none"
-            onError={(e) => {
-              // Graceful fallback for local preview environments
-              e.target.onerror = null;
-              e.target.src = "https://content-fetcher.web.app/?id=uploaded:CNSM_W.jpg-a338ce16-ee57-4c97-bb50-46fa842647ee";
-            }}
-          />
+          {/* Main T-Shirt Mockup Image or Realistic Vector Fallback */}
+          {!imgError ? (
+            <img
+              src="/CNSM_W.png"
+              alt="T-Shirt Mockup"
+              className="absolute inset-0 w-full h-full object-contain pointer-events-none"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            /* Responsive SVG T-Shirt Vector Overlay (Used in Preview or if image fails) */
+            <svg
+              viewBox="0 0 500 500"
+              className="absolute inset-0 w-full h-full object-contain pointer-events-none text-gray-800"
+            >
+              {/* T-Shirt Silhouette Outline & Shading */}
+              <g fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                {/* Body & Sleeves Outer Path */}
+                <path
+                  d="M 160 80 
+                     C 180 110, 320 110, 340 80 
+                     L 440 140 
+                     L 380 230 
+                     L 345 200 
+                     L 345 440 
+                     L 155 440 
+                     L 155 200 
+                     L 120 230 
+                     L 60 140 
+                     Z"
+                  fill="none"
+                  strokeOpacity="0.3"
+                />
+                
+                {/* Collar Neckline (Crew-Neck vs V-Neck) */}
+                {selectedCut === 'v-neck' ? (
+                  <path d="M 195 80 L 250 150 L 305 80" strokeOpacity="0.5" strokeWidth="4" />
+                ) : (
+                  <path d="M 195 80 Q 250 130 305 80" strokeOpacity="0.5" strokeWidth="4" />
+                )}
+
+                {/* Sleeve Seam Details */}
+                <path d="M 155 200 L 120 100" strokeOpacity="0.25" strokeDasharray="4,4" />
+                <path d="M 345 200 L 380 100" strokeOpacity="0.25" strokeDasharray="4,4" />
+
+                {/* Inner Shadows and Shading Overlay for 3D realism */}
+                <path
+                  d="M 155 440 L 345 440 L 345 200 L 380 230 L 440 140 L 340 80 C 320 110, 180 110, 160 80 L 60 140 L 120 230 L 155 200 Z"
+                  fill="black"
+                  fillOpacity="0.06"
+                  stroke="none"
+                />
+              </g>
+            </svg>
+          )}
 
           {/* Render Selected Artwork Design */}
           {selectedDesign && (
@@ -380,6 +429,7 @@ function App() {
       </div>
 
       {/* Order Summary Modal */}
+      {}
       {showModal && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-md">
